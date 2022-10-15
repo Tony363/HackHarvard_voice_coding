@@ -14,7 +14,7 @@ class Class:
     def addAttribute(self, name, typ):
         self.__attributes.append((name, typ))
 
-    def addMethod(self, name, *kwargs):
+    def addMethod(self, name, kwargs):
         params = []
         for arg in kwargs:
             params.append(str(arg))
@@ -30,6 +30,8 @@ class Class:
         else:
             file.write("class {}:\n\n".format(self.__name))
         file.write("    def __init__(self):\n")
+        if len(self.__attributes) == 0:
+            file.write("      pass\n")
         for attribute in self.__attributes:
             file.write("        self.{} = {}()\n".format(
                 attribute[0], attribute[1]))
@@ -42,10 +44,11 @@ class Class:
                 "    def {}(self{}):\n        pass\n\n".format(method, st))
 
 
+
 class Parser:
 
-    keywords = set('class', 'inherits', 'method',
-                   'attribute', 'attributes', 'undo')
+    keywords = set(['class', 'inherits', 'method',
+                   'attribute', 'attributes', 'undo', 'type', 'parameter', 'parameters'])
 
     def __init__(self, name="DuckyProgram"):
         self.__classes = []
@@ -78,6 +81,28 @@ class Parser:
 
     def parseSentence(self, sentence):
         sentence = remPunc(sentence.lower().strip()).split()
+        for i in range(len(sentence)):
+            if sentence[i] == 'parameter':
+                sentence[i] = 'parameters'
+        if "class" in sentence:
+            name = camelCase(getName(sentence, 'class'), False)
+            inherits = camelCase(getName(sentence, 'inherits'), False)
+            self.addClass(name, inherits)
+        if "attribute" in sentence:
+            name = camelCase(getName(sentence, 'attribute'))
+            typ = camelCase(getName(sentence, 'type'))
+            if self.__current is not None:
+                self.__current.addAttribute(name, typ)
+        if "method" in sentence:
+            name = camelCase(getName(sentence, "method"))
+            params = getName(sentence, 'parameters')
+            if self.__current is not None:
+                self.__current.addMethod(name, params)
+    
+    def getClasses(self):
+        return self.__classes
+
+
 
 
 def remPunc(sentence):
@@ -91,7 +116,9 @@ def remPunc(sentence):
 
 def camelCase(wordls, func=True):
     if len(wordls) == 1:
-        return wordls[0]
+        if func:
+            return wordls[0]
+        return wordls[0].capitalize()
     elif len(wordls) > 1:
         if func:
             ans = wordls[0]
@@ -102,9 +129,16 @@ def camelCase(wordls, func=True):
         return ans
     return None
 
-
 def getName(sentence, key):
     if key in sentence:
-        i = sentence.index(key)
+        i = sentence.index(key)+1
         ans = []
-        for j in range
+        stop = False
+        while i<len(sentence) and not stop:
+            if sentence[i] not in Parser.keywords:
+                ans.append(sentence[i])
+            else:
+                stop = True
+            i += 1
+        return ans
+    return []
