@@ -27,6 +27,6 @@ class Car(Vehicle):
 
 
 if __name__ == '__main__':
-    args = shlex.split('-o png -p example test_uml.py')
+    args = shlex.split('-o png -p example DuckyProgram.py')
     subprocess.call(['pyreverse'] + args)
     # Run(args)
