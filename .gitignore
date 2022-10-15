@@ -2,4 +2,3 @@ venv
 venv/*
 audio/*
 audio-chunks/*
-test.py
