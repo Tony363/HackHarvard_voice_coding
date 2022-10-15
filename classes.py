@@ -8,6 +8,9 @@ class Class:
         self.__methods = {}
         self.__inherits = inherits
 
+    def getName(self):
+        return self.__name
+
     def __eq__(self, other):
         return self.__name == str(other)
 
@@ -47,7 +50,7 @@ class Class:
 class Parser:
 
     keywords = set(['class', 'inherits', 'method',
-                   'attribute', 'attributes', 'undo', 'type', 'parameter', 'parameters'])
+                   'attribute', 'attributes', 'undo', 'type', 'parameter', 'parameters', 'with', 'for'])
 
     def __init__(self, name="DuckyProgram"):
         self.__classes = []
@@ -62,6 +65,9 @@ class Parser:
                 new.setInherits(inherits)
             self.__classes.append(new)
             self.__current = new
+        elif inherits is not None:
+            self.__current.setInherits(inherits)
+        print(self.__current.getName())
 
     def findClass(self, name):
         for cls in self.__classes:
@@ -70,7 +76,16 @@ class Parser:
         return None
 
     def setCurrent(self, name):
-        self.__current = self.findClass(name)
+        for cls in self.__classes:
+            if cls == name:
+                self.__current = cls
+                return cls
+        self.__current = None
+        return None
+        
+
+    def getCurrent(self):
+        return self.__current
 
     def write(self):
         with open(self.__name+'.py', 'w') as f:
@@ -97,6 +112,17 @@ class Parser:
             params = getName(sentence, 'parameters')
             if self.__current is not None:
                 self.__current.addMethod(name, params)
+
+    def clear(self):
+        self.__classes = []
+        self.__current = None
+
+    def parseText(self, text):
+        text = text.split('.')
+        for sent in text:
+            self.parseSentence(sent)
+
+    
 
     def getClasses(self):
         return self.__classes
