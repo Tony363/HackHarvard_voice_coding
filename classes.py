@@ -44,7 +44,6 @@ class Class:
                 "    def {}(self{}):\n        pass\n\n".format(method, st))
 
 
-
 class Parser:
 
     keywords = set(['class', 'inherits', 'method',
@@ -98,11 +97,9 @@ class Parser:
             params = getName(sentence, 'parameters')
             if self.__current is not None:
                 self.__current.addMethod(name, params)
-    
+
     def getClasses(self):
         return self.__classes
-
-
 
 
 def remPunc(sentence):
@@ -129,12 +126,13 @@ def camelCase(wordls, func=True):
         return ans
     return None
 
+
 def getName(sentence, key):
     if key in sentence:
         i = sentence.index(key)+1
         ans = []
         stop = False
-        while i<len(sentence) and not stop:
+        while i < len(sentence) and not stop:
             if sentence[i] not in Parser.keywords:
                 ans.append(sentence[i])
             else:
