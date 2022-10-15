@@ -6,6 +6,7 @@ class Vehicle:
     def getSpeed(self):
         pass
 
+
 class Car(Vehicle):
 
     def __init__(self):
@@ -17,6 +18,7 @@ class Car(Vehicle):
     def decelerate(self):
         pass
 
+
 class Truck(Vehicle):
 
     def __init__(self):
@@ -25,8 +27,8 @@ class Truck(Vehicle):
     def tryHard(self, rate, speed, look):
         pass
 
+
 class Ford150(Truck):
 
     def __init__(self):
-      pass
-
+        pass
