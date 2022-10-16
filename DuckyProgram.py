@@ -1,8 +1,8 @@
 class Cnn:
 
     def __init__(self):
-        self.conv2d = nnconv2d()
-        self.fc = nnlinear()
+        self.conv2d = nnConv2d()
+        self.fc = nnLinear()
 
     def getForward(self):
         pass
@@ -10,7 +10,7 @@ class Cnn:
 class Lstm:
 
     def __init__(self):
-        self.lstm = nnmodule()
+        self.lstm = nnModule()
 
     def initialize(self, tensor):
         pass

@@ -7,3 +7,4 @@ class LSTM(Module):
                  embedding_size: int,
                  hidden_size: int,
                  n_layers: int):
+        pass

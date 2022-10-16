@@ -18,8 +18,8 @@ def main() -> None:
 
     pars = Parser()
 
-    text = "Class CNN. Attribute conv2d type nnConv2d. Attribute fc type nnLinear. Method get forward." +\
-        "Class LSTM. Ducky give me attribute lstm type nnModule. Ducky, give me method initialize parameters tensor." +\
+    text = "Class CNN. Attribute conv2d type nn Conv2d. Attribute fc type nn Linear. Method get forward." +\
+        "Class LSTM. Ducky give me attribute lstm type nn Module. Ducky, give me method initialize parameters tensor." +\
         "Class CNNLSTM inherits CNN. Attribute featureExtractor type nnModule. Method forward parameters tensor vocabSize." +\
         "Class Loader inherits DataLoader. method __iter__. Class Data inherits DataSet. Attribute queue type list."
 
