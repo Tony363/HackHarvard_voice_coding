@@ -85,7 +85,7 @@ if __name__ == "__main__":
     #     ]
     text = open("../DuckyProgram.py", "r").readlines()
     prompts = [prompt for prompt in text if prompt != "\n"]
-    print(prompts)
+    # print(prompts)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model, tokenizer = get_model(device)
     auto_complete(prompts, model, tokenizer, device)
