@@ -2,3 +2,4 @@ venv
 venv/*
 audio/*
 audio-chunks/*
+pytorch_model.bin
