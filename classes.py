@@ -1,3 +1,5 @@
+from transcribe import *
+
 class Class:
 
     #stdTypes = [t for t in b.__dict__.values()]
@@ -67,7 +69,6 @@ class Parser:
             self.__current = new
         elif inherits is not None:
             self.__current.setInherits(inherits)
-        print(self.__current.getName())
 
     def findClass(self, name):
         for cls in self.__classes:
@@ -122,10 +123,16 @@ class Parser:
         for sent in text:
             self.parseSentence(sent)
 
+    def makePNG(self):
+        draw_uml(self.__name+'.py')
+
     
 
     def getClasses(self):
         return self.__classes
+
+    def getName(self):
+        return self.__name
 
 
 def remPunc(sentence):

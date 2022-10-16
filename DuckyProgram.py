@@ -2,10 +2,10 @@ class Vehicle:
 
     def __init__(self):
         self.wheels = int()
+        self.rubber = str()
 
     def getSpeed(self):
         pass
-
 
 class Car(Vehicle):
 
@@ -18,7 +18,6 @@ class Car(Vehicle):
     def decelerate(self):
         pass
 
-
 class Truck(Vehicle):
 
     def __init__(self):
@@ -27,8 +26,8 @@ class Truck(Vehicle):
     def tryHard(self, rate, speed, look):
         pass
 
-
 class Ford150(Truck):
 
     def __init__(self):
-        pass
+        self.horsepower = float()
+
