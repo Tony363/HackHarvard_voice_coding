@@ -6,7 +6,10 @@ import logging
 logging.disable(logging.CRITICAL)
 
 
-def get_model(device: torch.device) -> tuple:
+def get_model(
+    device: torch.device = torch.device(
+        "cuda" if torch.cuda.is_available() else "cpu")
+) -> tuple:
     os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
     tokenizer = GPT2Tokenizer.from_pretrained(
         "shibing624/code-autocomplete-gpt2-base")
