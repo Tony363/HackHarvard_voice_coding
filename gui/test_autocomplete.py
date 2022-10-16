@@ -16,13 +16,15 @@ def get_model(device: torch.device) -> tuple:
     return model, tokenizer
 
 
-def main(
+def auto_complete(
     prompts: list,
     model: GPT2LMHeadModel,
     tokenizer: GPT2Tokenizer,
-    device: torch.device,
-) -> None:
-    file = open("txt/autocomplete_code.txt", "w")
+    device: torch.device = torch.device(
+        "cuda" if torch.cuda.is_available() else "cpu")
+) -> str:
+    file = open("../txt/autocomplete_code.txt", "w")
+    file_str = ""
     for prompt in prompts:
         input_ids = tokenizer.encode(
             prompt, add_special_tokens=False, return_tensors='pt').to(device)
@@ -40,9 +42,11 @@ def main(
             outputs[0],
             skip_special_tokens=True,
         )
+        file_str += decoded
         file.write(decoded)
         print(decoded)
     file.close()
+    return file_str
     # print("=" * 20)
 
 
@@ -65,20 +69,23 @@ if __name__ == "__main__":
     #     "import java.util.ArrayList",
     #     "def factorial(n):",
     # ]
-    prompts = [
-        """
-class Vehicle:
-        """,
-        """
-class Vehicle:
-    def __init__(self):
-""",
-        """
-class Vehicle:
-    def __init__(self):
-        self.wheels=
-"""
-    ]
+    #     prompts = [
+    #         """
+    # class CNN(nn.Module):
+    #         """,
+    #         """
+    # class CNN(nn.Module):
+    #     def __init__(self,):
+    # """,
+    #         """
+    # class CNN(nn.Module):
+    #     def __init__(self):
+    #         super(CNN,self).__init__()
+    # """
+    #     ]
+    text = open("../DuckyProgram.py", "r").readlines()
+    prompts = [prompt for prompt in text if prompt != "\n"]
+    print(prompts)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model, tokenizer = get_model(device)
-    main(prompts, model, tokenizer, device)
+    auto_complete(prompts, model, tokenizer, device)

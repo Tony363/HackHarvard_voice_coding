@@ -18,10 +18,10 @@ def main() -> None:
 
     pars = Parser()
 
-    text = "Class vehicle. Attribute wheels type int. Attribute rubber type str. Method get speed." +\
-        "Class car. Ducky give me attribute speed type float. Ducky, give me method accelerate parameters rate." +\
-        "Class truck inherits vehicle. Attribute mpg type float. Method try hard parameters rate speed look." +\
-        "Class car inherits vehicle. method decelerate. Class Ford150 inherits truck. Attribute horsepower type float. "
+    text = "Class CNN. Attribute conv2d type nnConv2d. Attribute fc type nnLinear. Method get forward." +\
+        "Class LSTM. Ducky give me attribute lstm type nnModule. Ducky, give me method initialize parameters tensor." +\
+        "Class CNNLSTM inherits CNN. Attribute featureExtractor type nnModule. Method forward parameters tensor vocabSize." +\
+        "Class Loader inherits DataLoader. method __iter__. Class Data inherits DataSet. Attribute queue type list."
 
     # pars.parseSentence("Class vehicle.")
     # pars.parseSentence("Attribute wheels type int.")

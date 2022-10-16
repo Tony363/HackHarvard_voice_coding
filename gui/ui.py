@@ -5,6 +5,7 @@ from PyQt5.QtCore import *
 from transcribe import *
 from classes import *
 from syntax_py import *
+from test_autocomplete import get_model, auto_complete
 
 
 class App(QWidget):
@@ -26,6 +27,7 @@ class App(QWidget):
         self.connect()
 
         self.pars = Parser()
+        self.model, self.tokenizer = get_model()
 
     def initUI(self):
 
@@ -107,13 +109,15 @@ class App(QWidget):
         self.pars.clear()
         self.pars.parseText(text)
         self.pars.write()
-        # self.pars.makePNG()
-        # self.redrawImage()
+        self.pars.makePNG()
+        self.redrawImage()
         with open(self.pars.getName()+'.py') as f:
             code = f.read()
             f.close()
-
-        self.code.setPlainText(code)
+        prompts = [prompt for prompt in code.splitlines() if prompt != ""]
+        suggested = auto_complete(prompts, self.model, self.tokenizer)
+        # suggested = code
+        self.code.setPlainText(suggested)
         self.highlighter = Highlighter(self.code.document())
 
     def undoCallback(self):

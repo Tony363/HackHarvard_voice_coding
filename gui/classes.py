@@ -1,4 +1,4 @@
-from transcribe import *
+# from transcribe import *
 
 class Class:
 
@@ -83,7 +83,6 @@ class Parser:
                 return cls
         self.__current = None
         return None
-        
 
     def getCurrent(self):
         return self.__current
@@ -125,8 +124,6 @@ class Parser:
 
     def makePNG(self):
         draw_uml(self.__name+'.py')
-
-    
 
     def getClasses(self):
         return self.__classes
