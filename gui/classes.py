@@ -1,5 +1,5 @@
-from transcribe import *
-# from transcribe import *
+from gui.transcribe import *
+
 
 class Class:
 

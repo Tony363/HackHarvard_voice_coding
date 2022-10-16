@@ -77,4 +77,5 @@ if __name__ == '__main__':
     python transcribe.py audio/003.wav --local
     draw_uml("DuckyProgram.py")
     """
-    main()
+    # main()
+    draw_uml("../test_cases/test_2.py")

@@ -54,41 +54,9 @@ def auto_complete(
 
 
 if __name__ == "__main__":
-    # prompts = [
-    #     """
-    #     from torch import nn
-    #     class LSTM(Module):
-    #         def __init__(self, *,
-    #                     n_tokens: int,
-    #                     embedding_size: int,
-    #                     hidden_size: int,
-    #                     n_layers: int):
-    #                     """,
-    #     """
-    #     import numpy as np
-    #     import torch
-    #     import torch.nn as
-    #     """,
-    #     "import java.util.ArrayList",
-    #     "def factorial(n):",
-    # ]
-    #     prompts = [
-    #         """
-    # class CNN(nn.Module):
-    #         """,
-    #         """
-    # class CNN(nn.Module):
-    #     def __init__(self,):
-    # """,
-    #         """
-    # class CNN(nn.Module):
-    #     def __init__(self):
-    #         super(CNN,self).__init__()
-    # """
-    #     ]
-    text = open("../DuckyProgram.py", "r").readlines()
-    prompts = [prompt for prompt in text if prompt != "\n"]
-    # print(prompts)
+    files = [open(os.path.join("../test_cases", f), "r").read()
+             for f in os.listdir("../test_cases")][1:]
+    print(files)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model, tokenizer = get_model(device)
-    auto_complete(prompts, model, tokenizer, device)
+    auto_complete(files, model, tokenizer, device)
