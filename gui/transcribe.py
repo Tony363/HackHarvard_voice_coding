@@ -62,9 +62,9 @@ def main():
     paragraphs = utils.get_paragraphs(polling_endpoint, header)
 
     # Save and print transcript
-    with open('txt/transcript.txt', 'w') as f:
+    with open('transcript.txt', 'w') as f:
         for para in paragraphs:
-            # print(para['text'] + '\n')
+            print(para['text'] + '\n')
             f.write(para['text'] + '\n')
 
     return

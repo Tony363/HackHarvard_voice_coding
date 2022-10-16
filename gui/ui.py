@@ -71,10 +71,12 @@ class App(QWidget):
         self.code = QPlainTextEdit()
         self.code.setReadOnly(True)
         self.undo = QPushButton("Undo")
+        self.auto = QPushButton("Auto Complete")
         self.convert = QPushButton("Convert")
         layout = QGridLayout()
         layout.addWidget(self.convert, 0, 0)
         layout.addWidget(self.undo, 0, 1)
+        layout.addWidget(self.auto, 1, 1)
         layout.addWidget(self.code, 1, 0, 1, 2)
         widget.setLayout(layout)
         return widget
