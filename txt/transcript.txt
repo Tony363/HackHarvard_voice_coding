@@ -1,1 +1,1 @@
-Class car constructor none. Method set, method get, deconstructor none.
+Class vehicle attribute wheels type intribute rubber type string method get speed.
