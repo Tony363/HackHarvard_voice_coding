@@ -107,8 +107,8 @@ class App(QWidget):
         self.pars.clear()
         self.pars.parseText(text)
         self.pars.write()
-        self.pars.makePNG()
-        self.redrawImage()
+        # self.pars.makePNG()
+        # self.redrawImage()
         with open(self.pars.getName()+'.py') as f:
             code = f.read()
             f.close()
