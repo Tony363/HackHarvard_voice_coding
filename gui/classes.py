@@ -1,3 +1,4 @@
+from transcribe import *
 # from transcribe import *
 
 class Class:

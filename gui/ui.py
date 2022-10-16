@@ -7,11 +7,39 @@ from classes import *
 from syntax_py import *
 from test_autocomplete import get_model, auto_complete
 
+import serial
+
+
+class ListenerThread(QThread):
+    released = pyqtSignal()
+    pressed = pyqtSignal()
+
+    def __init__(self):
+        QThread.__init__(self)
+
+        self.ser = serial.Serial()
+        self.ser.port = "COM5"
+        self.ser.baudrate = 9600
+        self.ser.timeout = None
+        try:
+            self.ser.open()
+        except:
+            pass
+
+    def run(self):
+        while 1:
+            tdata =  self.ser.read().decode('utf-8')
+            if tdata == '0':
+                self.released.emit()
+
 
 class App(QWidget):
 
     def __init__(self):
         super().__init__()
+
+        
+
         self.title = 'Ducky GUI'
         self.left = 50
         self.top = 50
@@ -25,10 +53,14 @@ class App(QWidget):
 
         self.initUI()
         self.connect()
-
+        self.setFont(QFont('Helvetica', 20))
         self.pars = Parser()
         self.model, self.tokenizer = get_model()
         self.auto_complete = False
+
+        self.thread = ListenerThread()
+        self.thread.start()
+        self.thread.released.connect(self.forward)
 
     def initUI(self):
 
@@ -62,6 +94,10 @@ class App(QWidget):
 
         self.show()
 
+    
+    def forward(self):
+        print("successs")
+    
     def connect(self):
         self.convert.clicked.connect(self.convertCallback)
         self.undo.clicked.connect(self.undoCallback)
