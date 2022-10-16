@@ -26,7 +26,7 @@ def auto_complete(
     device: torch.device = torch.device(
         "cuda" if torch.cuda.is_available() else "cpu")
 ) -> str:
-    file = open("../txt/autocomplete_code.txt", "w")
+    file = open("../autocomplete_code.txt", "w")
     file_str = ""
     for prompt in prompts:
         input_ids = tokenizer.encode(
