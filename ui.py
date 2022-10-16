@@ -4,7 +4,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from transcribe import *
 from classes import *
-
+from syntax_py import *
 
 
 class App(QWidget):
@@ -15,7 +15,6 @@ class App(QWidget):
         self.left = 50
         self.top = 50
 
-
         rec = QApplication.desktop().screenGeometry()
         self.maxHeight = rec.height()
         self.maxWidth = rec.width()
@@ -23,15 +22,12 @@ class App(QWidget):
         self.width = self.maxWidth//1.3
         self.height = self.maxHeight//1.3
 
-
         self.initUI()
         self.connect()
-
 
         self.pars = Parser()
 
     def initUI(self):
-    
 
         self.leftWidg = QWidget()
         self.leftWidg.setMaximumWidth(self.width//2.7)
@@ -46,10 +42,8 @@ class App(QWidget):
 
         self.layout = QHBoxLayout()
 
-
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
-
 
         self.imWidg = QScrollArea(self)
         self.image = QLabel(self)
@@ -63,15 +57,11 @@ class App(QWidget):
         self.layout.addWidget(self.imWidg)
         self.setLayout(self.layout)
 
-
-
         self.show()
-
 
     def connect(self):
         self.convert.clicked.connect(self.convertCallback)
         self.undo.clicked.connect(self.undoCallback)
-
 
     def makeCode(self):
         widget = QGroupBox("Code")
@@ -80,7 +70,7 @@ class App(QWidget):
         self.undo = QPushButton("Undo")
         self.convert = QPushButton("Convert")
         layout = QGridLayout()
-        layout.addWidget(self.convert,0,0)
+        layout.addWidget(self.convert, 0, 0)
         layout.addWidget(self.undo, 0, 1)
         layout.addWidget(self.code, 1, 0, 1, 2)
         widget.setLayout(layout)
@@ -88,14 +78,12 @@ class App(QWidget):
 
     def makeText(self):
         self.textEntryWidg = QPlainTextEdit()
-        
 
         self.textBox = QGroupBox("Input")
         self.textBox.setFixedHeight(self.height//3)
         self.textBoxLayout = QVBoxLayout()
         self.textBoxLayout.addWidget(self.textEntryWidg)
         self.textBox.setLayout(self.textBoxLayout)
-
 
     def redrawImage(self):
         pixmap = QPixmap('classes_example.png')
@@ -106,14 +94,13 @@ class App(QWidget):
                 pixmap = pixmap.scaledToHeight(self.height-50)
             else:
                 pixmap = pixmap.scaledToWidth(self.width//2-50)
-                
+
         self.image.setPixmap(pixmap)
         self.image.setMinimumSize(pixmap.width()+10, pixmap.height()+10)
         self.layout.addWidget(self.leftWidg)
         self.layout.addWidget(self.imWidg)
         self.setLayout(self.layout)
         self.show()
-
 
     def convertCallback(self):
         text = self.textEntryWidg.toPlainText()
@@ -127,8 +114,8 @@ class App(QWidget):
             f.close()
 
         self.code.setPlainText(code)
+        self.highlighter = Highlighter(self.code.document())
 
-    
     def undoCallback(self):
         text = self.textEntryWidg.toPlainText()
         i = text[:-1].rfind('.')
@@ -137,7 +124,6 @@ class App(QWidget):
         self.textEntryWidg.clear()
         self.textEntryWidg.setPlainText(text)
         self.convertCallback()
-
 
 
 if __name__ == '__main__':
