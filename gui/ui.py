@@ -28,6 +28,7 @@ class App(QWidget):
 
         self.pars = Parser()
         self.model, self.tokenizer = get_model()
+        self.auto_complete = False
 
     def initUI(self):
 
@@ -114,10 +115,12 @@ class App(QWidget):
         with open(self.pars.getName()+'.py') as f:
             code = f.read()
             f.close()
-        prompts = [prompt for prompt in code.splitlines() if prompt != ""]
-        suggested = auto_complete(prompts, self.model, self.tokenizer)
-        # suggested = code
-        self.code.setPlainText(suggested)
+
+        if self.auto_complete:
+            prompts = [prompt for prompt in code.splitlines() if prompt != ""]
+            code = auto_complete(prompts, self.model, self.tokenizer)
+
+        self.code.setPlainText(code)
         self.highlighter = Highlighter(self.code.document())
 
     def undoCallback(self):
