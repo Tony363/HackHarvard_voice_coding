@@ -50,7 +50,6 @@ def auto_complete(
         print(decoded)
     file.close()
     return file_str
-    # print("=" * 20)
 
 
 if __name__ == "__main__":
